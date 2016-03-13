@@ -26,7 +26,7 @@ class Notification(models.Model):
     NOTIFICATION_TYPES = (
         ('LIKED', 'Liked'),
         ('COMMENTED', 'Commented'),
-        ('FAVORITED', 'Favorited'),
+      
         )
         
         
