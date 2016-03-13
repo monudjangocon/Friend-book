@@ -39,7 +39,7 @@ class Notification(models.Model):
 
     _LIKED_TEMPLATE = u'<a href="/{0}/">{1}</a> liked your post: <a href="/feeds/{2}/">{3}</a>'
     _COMMENTED_TEMPLATE = u'<a href="/{0}/">{1}</a> commented on your post: <a href="/feeds/{2}/">{3}</a>'
-    _FAVORITED_TEMPLATE = u'<a href="/{0}/">{1}</a> favorited your question: <a href="/questions/{2}/">{3}</a>'
+   
     
 
     def __unicode__(self):
@@ -57,13 +57,7 @@ class Notification(models.Model):
                 self.feed.pk,
                 escape(self.get_summary(self.feed.post))
                 )
-        elif self.notification_type == self.FAVORITED:
-            return self._FAVORITED_TEMPLATE.format(
-                escape(self.from_user.username),
-                escape(self.from_user.profile.get_screen_name()),
-                self.question.pk,
-                escape(self.get_summary(self.question.title))
-                )
+      
        
         
         
