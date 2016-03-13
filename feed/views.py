@@ -39,7 +39,7 @@ def load(request):
     all_feeds = Feed.get_feeds(from_feed)
     if feed_source != 'all':
         all_feeds = all_feeds.filter(user__id=feed_source)
-    paginator = Paginator(all_feeds, FEEDS_NUM_PAGES)
+    paginator = Paginator(all_feeds, feed_pages)
     try:
         feeds = paginator.page(page)
     except PageNotAnInteger:
