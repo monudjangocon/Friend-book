@@ -10,12 +10,12 @@ from friend.decorators import ajax_required
 from django.contrib.auth.decorators import login_required
 
 
-FEEDS_NUM_PAGES = 10
+feed_pages = 10
 
 @login_required
 def feeds(request):
     all_feeds = Feed.get_feeds()
-    paginator = Paginator(all_feeds, FEEDS_NUM_PAGES)
+    paginator = Paginator(all_feeds,feed_pages)
     feeds = paginator.page(1)
     from_feed = -1
     if feeds:
