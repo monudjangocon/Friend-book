@@ -1,0 +1,123 @@
+.profile {
+  margin-top: 1em;
+}
+
+.user-profile .picture {
+  width: 100px;
+  border-radius: 5px;
+}
+
+.user-profile ul {
+  padding: 0;
+  margin-top: .6em;
+}
+
+.user-profile ul li {
+  list-style: none;
+}
+
+ .frnd{
+ 	margin-left: 200px;
+ 	margin-top:1em;
+ }
+
+ .user-profile2 .picture {
+  width: 900px;
+  height: 300px;
+  border-radius: 5px;
+}
+
+
+body{
+  margin:0px;
+ 
+}
+
+.chat-box{
+	position:fixed;
+	bottom:0px;
+	right:30px;
+	
+   width:260px;
+  
+ 
+
+}
+
+.chat_head,.msg_head{
+	background-color:#d35400;
+	padding:13px;
+	color:white;
+	border-radius:5px 5px 0px 0px;
+	cursor:pointer;
+	
+	
+}
+
+
+.chat_body{
+	background:white;
+	height:400px;
+}
+.msg_box{
+	width:270px;
+	background:white;
+	position:fixed;
+	bottom:0px;
+	right:30px;
+   border-radius:5px 5px 0px 0px;
+   
+	
+}
+
+.msg_head{
+	background:#3498db;
+	cursor:pointer;
+}
+
+.msg_body{
+	height:400px;
+	background:white;
+	pading:10px;
+	overflow-x:hidden;
+}
+.close{
+	float:right;
+	color:white;
+	cursor:pointer;
+}
+
+.msg_input{
+	border:transparent;
+	border-top:1px solid #bdc3c7;
+	width:100%;
+	height:60px;
+	
+}
+textarea{
+	resize:none;
+}
+
+
+.user{
+	position:relative;
+	padding:15px 20px;
+	cursor:pointer;
+	
+}
+
+.user:before{
+	position:absolute;
+	width:10px;
+	height:10px;
+	content:"";
+	background:#2ecc71;
+	left:4px;
+	top:19px;
+	border-radius:5px;
+	
+}
+
+.user:hover{
+	background:#ecf0f1;
+}

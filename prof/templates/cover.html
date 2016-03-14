@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block head %}
+  <link href="{% static 'css/cover.css' %}" rel="stylesheet">
+  <link href="{% static 'css/password.css' %}" rel="stylesheet">
+
+{% endblock head %}
+
+{% block body %}
+  
+ <div class="cover">
+   <div class="row">
+     <div class="col-md-6" >
+    <h1 class="logo">Friend Book</h1>
+    {% if form.non_field_errors %}
+      {% for error in form.non_field_errors %}
+        <div class="alert alert-danger alert-dismissable">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          {{ error }}
+        </div>
+      {% endfor %}
+    {% endif %}
+    <div class="login">
+      <form method="post" action="/login/" role="form">
+        {% csrf_token %}
+        <div class="form-group{% if form.username.errors %} has-error{% endif %}">
+          <label for="username">{% trans 'Username' %}</label>
+          <input type="text" class="form-control" id="username" name="username" placeholder="Username"/>
+          {% for error in form.username.errors %}
+            <label class="control-label">{{ error }}</label>
+          {% endfor %}
+        </div>
+        <div class="form-group{% if form.password.errors %} has-error{% endif %}">
+          <label for="password">{% trans 'Password' %}</label>
+          <input type="password" class="form-control" id="password" name="password" placeholder="Password"/>
+          {% for error in form.password.errors %}
+            <label class="control-label">{{ error }}</label>
+          {% endfor %}
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-warning">{% trans 'Log in' %}</button>
+          <a href="/signup/" class="btn btn-success">{% trans 'Register' %}</a>
+
+        </div>
+        <div class="password">
+          <p style="color:yellow">Forgot your Password ? <a href="/password_reset/" >{% trans 'Reset it' %}</a></p>
+          
+        </div>  
+      </form>
+    </div>
+  </div>
+</div>
+
+</div>
+  
+{% endblock body %}

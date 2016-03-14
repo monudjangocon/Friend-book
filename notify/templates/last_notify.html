@@ -1,0 +1,15 @@
+
+{% load i18n %}
+
+<ul>
+  {% for notification in notifications %}
+    <li>
+      <img src="{{ notification.from_user.profile.get_picture }}" class="user-picture">
+      <p>{{ notification|safe }}</p>
+      <p>{{ notnaturaltime }}</p>
+    </li>
+  {% empty %}
+    <li style="text-align: center">{% trans 'You have no unread notification' %}</li>
+  {% endfor %}
+    <li style="text-align: center"><a href="{% url 'notifications' %}">{% trans 'See all' %}</a></li>
+</ul>
