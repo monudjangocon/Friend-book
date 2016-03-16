@@ -3,16 +3,13 @@ from django.db.models.signals import post_save
 from django.db import models
 from django.conf import settings
 import os.path
-import urllib, hashlib
 
 class Profile(models.Model):
     user = models.OneToOneField(User)
     location = models.CharField(max_length=50, null=True, blank=True)
     url = models.CharField(max_length=50, null=True, blank=True)
     job_title = models.CharField(max_length=50, null=True, blank=True)
-    #reputation = models.IntegerField(default=0)
-    #language = models.CharField(max_length=5, default='en')
-
+    
 
     def get_url(self):
         url = self.url
@@ -21,18 +18,14 @@ class Profile(models.Model):
         return url 
 
     def get_picture(self):
-        no_picture = 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTIH-l2Mqzxu-gm4M6R0zFzizYeKkMdw3YJL02FORmQXDOmIX4ZS7u5lA'
+        no_picture = ''
         try:
             filename = settings.MEDIA_ROOT + '/profile_pictures/' + self.user.username + '.jpg'
             picture_url = settings.MEDIA_URL + 'profile_pictures/' + self.user.username + '.jpg'
             if os.path.isfile(filename):
                 return picture_url
             else:
-                gravatar_url = u'http://www.gravatar.com/avatar/{0}?{1}'.format(
-                    hashlib.md5(self.user.email.lower()).hexdigest(),
-                    urllib.urlencode({'d':no_picture, 's':'256'})
-                    )
-                return gravatar_url
+                pass
         except Exception, e:
             return no_picture
 
