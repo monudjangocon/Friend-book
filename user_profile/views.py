@@ -73,6 +73,3 @@ def password(request):
 
 
 
-def log_out(request):
-    user=request.user
-    return render_to_response('core/logout.html',{'user':user})
