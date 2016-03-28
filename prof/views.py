@@ -1,7 +1,7 @@
 from django.shortcuts import render_to_response
-from django.contrib.auth import authenticate, login
 from prof.forms import SignUpForm
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
 
