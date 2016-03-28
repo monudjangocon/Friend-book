@@ -12,16 +12,12 @@ class ProfileForm(forms.ModelForm):
     email = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}),
         max_length=75,
         required=False)
-    location = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}), 
-        max_length=50,
-        required=False)
 
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'email', 'location',]
+        fields = ['first_name', 'last_name', 'email',]
 
     def full_clean(self):
-        'Strip whitespace automatically in all form fields'
         data = self.data.copy()
         for k, vs in self.data.lists():
             new_vs = []
