@@ -1,26 +1,23 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseForbidden
+from django.shortcuts import render_to_response, redirect, get_object_or_404
+from django.http import HttpResponse, HttpResponseForbidden,,HttpResponseBadRequest,HttpResponseRedirect
 from feeds.models import Feed
+import json
 from notify.models import Notify, Notification
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.template.loader import render_to_string
-from django.core.context_processors import csrf
-import json
-from friend.decorators import ajax_required
+from django.core.context_processors import csrf ## secure from snipping
 from django.contrib.auth.decorators import login_required
-
-
-feed_pages = 10
+from friend.decorators import ajax_required
 
 @login_required
 def feeds(request):
     all_feeds = Feed.get_feeds()
-    paginator = Paginator(all_feeds,feed_pages)
+    paginator = Paginator(all_feeds,8)
     feeds = paginator.page(1)
     from_feed = -1
     if feeds:
         from_feed = feeds[0].id
-    return render(request, 'feed2.html', {
+    return render_to_response('feed2.html', {
         'feeds': feeds,
         'from_feed': from_feed, 
         'page': 1,
@@ -28,7 +25,7 @@ def feeds(request):
 
 def feed(request, pk):
     feed = get_object_or_404(Feed, pk=pk)
-    return render(request, 'feed.html', {'feed': feed})
+    return render_to_response('feed.html', {'feed': feed})
 
 @login_required
 @ajax_required
@@ -39,7 +36,7 @@ def load(request):
     all_feeds = Feed.get_feeds(from_feed)
     if feed_source != 'all':
         all_feeds = all_feeds.filter(user__id=feed_source)
-    paginator = Paginator(all_feeds, feed_pages)
+    paginator = Paginator(all_feeds, 8)
     try:
         feeds = paginator.page(page)
     except PageNotAnInteger:
@@ -122,7 +119,7 @@ def like(request):
         like = Notify(notify_type=Notify.LIKE, feed=feed_id, user=user)
         like.save()
         user.profile.notify_liked(feed)
-    return HttpResponse(feed.calculate_likes())
+    return HttpResponse(feed.calculate_likes())  ## calculating number of likes 
 
 @login_required
 @ajax_required
@@ -137,11 +134,11 @@ def comment(request):
             user = request.user
             feed.comment(user=user, post=post)
             user.profile.notify_commented(feed)
-        return render(request, 'feed_comment.html', {'feed': feed})
+        return render_to_response('feed_comment.html', {'feed': feed})
     else:
         feed_id = request.GET.get('feed')
         feed = Feed.objects.get(pk=feed_id)
-        return render(request, 'feed_comment.html', {'feed': feed})
+        return render_to_response('feed_comment.html', {'feed': feed})
 
 @login_required
 @ajax_required
@@ -163,7 +160,7 @@ def update(request):
 def track_comments(request):
     feed_id = request.GET.get('feed')
     feed = Feed.objects.get(pk=feed_id)
-    return render(request, 'feed_comment.html', {'feed': feed})
+    return render_to_response('feed_comment.html', {'feed': feed})
 
 @login_required
 @ajax_required
